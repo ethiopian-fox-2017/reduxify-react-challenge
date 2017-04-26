@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { Main, Login } from './components'
 import { connect } from 'react-redux'
-import loginTrue from './actions'
+import { changeLogin } from './actions'
 import './App.css';
 
 class App extends Component {
@@ -16,7 +16,9 @@ class App extends Component {
 
   loginCheck() {
     if(localStorage.getItem('user')) {
-      this.props.loginTrue()
+      this.props.changeLogin(true)
+    } else {
+      this.props.changeLogin(false)
     }
   }
 
@@ -30,6 +32,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     this.handleUserData()
     this.loginCheck()
   }
@@ -65,7 +68,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  loginTrue: () => { dispatch(loginTrue()) }
+  changeLogin(val) {dispatch(changeLogin(val))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

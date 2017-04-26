@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import loginTrue from '../actions'
+import { changeLogin } from '../actions'
 
 class Login extends Component {
   constructor(props) {
@@ -14,11 +14,14 @@ class Login extends Component {
 
   loginCheck() {
     if(localStorage.getItem('user')) {
-      this.props.loginTrue()
+      this.props.changeLogin(true)
+    } else {
+      this.props.changeLogin(false)
     }
   }
 
   componentDidMount() {
+    console.log(this.props)
     this.loginCheck()
   }
 
@@ -48,13 +51,13 @@ class Login extends Component {
                 <p className="subtitle is-4 has-text-centered">Login Here</p>
                 <label className="label">Username</label>
                 <p className="control">
-                  <input className="input" type="text" placeholder="input username" value={this.state.username} onChange={this.handleUsernameChange} required />
+                  <input className="input" type="text" placeholder="input username" value={this.state.username} onChange={this.handleUsernameChange.bind(this)} required />
                 </p>
               </div>
               <div className="field">
                 <label className="label">Password</label>
                 <p className="control">
-                  <input className="input" type="password" placeholder="Input Password" value={this.state.password} onChange={this.handlePasswordChange} required />
+                  <input className="input" type="password" placeholder="Input Password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)} required />
                 </p>
               </div>
               <div className="field">
@@ -74,7 +77,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  loginTrue: () => { dispatch(loginTrue()) }
+  changeLogin: (val) => dispatch(changeLogin(val))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

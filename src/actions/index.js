@@ -1,2 +1,5 @@
 
-export const loginTrue = () => ({type: 'SET_LOGIN_TRUE'})
+export const changeLogin = (val) => ({
+  type: 'CHANGE_LOGIN',
+  payload: val
+})

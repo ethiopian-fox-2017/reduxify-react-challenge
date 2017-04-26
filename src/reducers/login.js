@@ -1,11 +1,11 @@
 
 const initialState = {
-  isLogin: false
+  isLogin: null
 }
 
-export default function login(state = initialState, action) {
+export const login = (state = initialState, action) => {
   switch(action.type) {
-    case 'SET_LOGIN_TRUE': return state.isLogin = true
+    case 'CHANGE_LOGIN': return state.isLogin = action.payload
     default: return state
   }
 }
