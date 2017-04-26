@@ -1,0 +1,2 @@
+export const CHANGE_LOGIN = 'CHANGE_LOGIN'
+export const FETCH_SUCCESS = 'FETCH_SUCCESS'

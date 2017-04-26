@@ -6,13 +6,6 @@ import { changeLogin } from './actions'
 import './App.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      data : [],
-      userData: null
-    }
-  }
 
   loginCheck() {
     if(localStorage.getItem('user')) {
@@ -22,18 +15,12 @@ class App extends Component {
     }
   }
 
-  handleUserData() {
-    this.setState({userData: localStorage.getItem('user')})
-  }
-
   logout() {
     localStorage.removeItem('user')
     window.location.reload()
   }
 
-  componentDidMount() {
-    console.log(this.props)
-    this.handleUserData()
+  componentWillMount() {
     this.loginCheck()
   }
 

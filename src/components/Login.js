@@ -20,8 +20,7 @@ class Login extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log(this.props)
+  componentWillMount() {
     this.loginCheck()
   }
 
@@ -72,11 +71,11 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isLogin: state.isLogin
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   changeLogin: (val) => dispatch(changeLogin(val))
 })
 

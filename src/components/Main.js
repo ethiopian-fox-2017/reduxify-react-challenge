@@ -1,39 +1,20 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import secret from '../config'
+import { connect } from 'react-redux'
+import { fetchRestaurants } from '../actions'
 
 class Main extends Component {
-  constructor() {
-    super()
-    this.state = {
-      data: []
-    }
-  }
-
-  getAPIData() {
-    let self = this
-    axios.get('https://developers.zomato.com/api/v2.1/search?entity_id=74&entity_type=city', {
-      headers: {'user-key': secret.ZOMATO_API}
-    }).then(res=> {
-      self.setState({
-        data: res.data.restaurants
-      })
-    }).catch(err=> {
-      console.log(err)
-    })
-  }
 
   componentDidMount() {
-    this.getAPIData()
+    this.props.fetchRestaurants()
   }
 
   render() {
     return (
       <div className="Main">
 
-      { this.state.data.length > 0 ? (
+      { this.props.data.length > 0 ? (
         <div className="columns is-multiline main-app">
-          {this.state.data.map(each => {
+          {this.props.data.map(each => {
             return (
               <div key={each.restaurant.id} className="column is-3">
                 <div className="card">
@@ -69,4 +50,12 @@ class Main extends Component {
   }
 }
 
-export default Main
+const mapStateToProps = state => ({
+  data: state.data
+})
+
+const mapDispatchToProps = dispatch => ({
+  fetchRestaurants: () => dispatch(fetchRestaurants())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main)

@@ -1,11 +1,11 @@
+import { CHANGE_LOGIN } from '../constants'
 
-const initialState = {
-  isLogin: null
-}
-
-export const login = (state = initialState, action) => {
+export const loginReducer = (state = null, action) => {
   switch(action.type) {
-    case 'CHANGE_LOGIN': return state.isLogin = action.payload
-    default: return state
+    case CHANGE_LOGIN: {
+      return action.payload
+    }
+    default:
+      return state
   }
 }
