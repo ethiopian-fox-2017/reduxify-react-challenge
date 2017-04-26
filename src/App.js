@@ -1,23 +1,22 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { Main, Login } from './components'
+import { connect } from 'react-redux'
+import loginTrue from './actions'
 import './App.css';
 
 class App extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       data : [],
-      isLogin: false,
       userData: null
     }
   }
 
   loginCheck() {
     if(localStorage.getItem('user')) {
-      this.setState({ isLogin: true })
-    } else {
-      this.setState({ isLogin: false })
+      this.props.loginTrue()
     }
   }
 
@@ -45,7 +44,7 @@ class App extends Component {
             </div>
             <div className="nav-right">
               <p className="nav-item"><Link to="/">Home</Link></p>
-              { this.state.isLogin ?
+              { this.props.isLogin ?
                 <a className="nav-item" onClick={this.logout}>Logout</a>
                 :
                 <p className="nav-item"><Link to="/login">Login</Link></p>
@@ -61,4 +60,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  isLogin: state.isLogin
+})
+
+const mapDispatchToProps = dispatch => ({
+  loginTrue: () => { dispatch(loginTrue()) }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

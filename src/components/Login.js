@@ -1,21 +1,20 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import loginTrue from '../actions'
 
 class Login extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       username: '',
-      password: '',
-      isLogin: false,
+      password: ''
     }
   }
 
   loginCheck() {
     if(localStorage.getItem('user')) {
-      this.setState({ isLogin: true })
-    } else {
-      this.setState({ isLogin: false })
+      this.props.loginTrue()
     }
   }
 
@@ -40,7 +39,7 @@ class Login extends Component {
     return (
       <div className="Login">
 
-        { this.state.isLogin ?
+        { this.props.isLogin ?
           ( <Redirect to={{ pathname: '/' }} /> )
           :
           <div className="box login-container">
@@ -70,4 +69,12 @@ class Login extends Component {
   }
 }
 
-export default Login
+const mapStateToProps = state => ({
+  isLogin: state.isLogin
+})
+
+const mapDispatchToProps = dispatch => ({
+  loginTrue: () => { dispatch(loginTrue()) }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
