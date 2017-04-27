@@ -1,0 +1,23 @@
+
+.zomatoed {
+  margin: 1em;
+}
+
+.main-title {
+  text-align: center;
+  margin: 2em;
+}
+
+.main-app {
+  padding: 1em;
+  margin: auto;
+}
+
+.loading {
+  text-align: center;
+}
+
+.login-container {
+  margin: auto;
+  width: 50%;
+}
